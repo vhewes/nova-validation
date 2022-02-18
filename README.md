@@ -2,6 +2,13 @@
 
 This repository contains visualisation code for the NOvA visualisation framework, providing simple general-purpose utilities for easily visualising distributions.
 
+## Instructions
+
+The example plotting macro can be run with
+```
+root -b -q example.C
+```
+
 ## Roadmap
 
 - Simple plotting utilities
