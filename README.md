@@ -14,3 +14,7 @@ This repository contains visualisation code for the NOvA visualisation framework
 - Document forming
   - Utility to generate LaTeX document format (1st April)
   - Utility to generate LaTeX slide format (8th April)
+
+## Resources
+
+[Learn Git in 15 Minutes](https://www.youtube.com/watch?v=USjZcfj8yxE)
