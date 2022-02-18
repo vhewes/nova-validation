@@ -9,6 +9,11 @@ The example plotting macro can be run with
 root -b -q example.C
 ```
 
+The contents of the validation root file can be visualised in a browser with
+```
+rootbrowse valid.hist.root
+```
+
 ## Roadmap
 
 - Simple plotting utilities
