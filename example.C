@@ -3,7 +3,6 @@
 #include "TFile.h"
 
 #include "PlotUtils.h"
-#include "Okabelto.h"
 
 void example()
 {
@@ -29,6 +28,9 @@ void example()
 
   // LoadAndDrawTH1("validgenie/Enu", kOkabelto1, "plots/enu");
   // LoadAndDrawTH1("validgenie/numu/Enu", kOkabelto2, "plots/enunumu");
+
+  // recursively plot everything
+  // RecursivePlot(f);
 
 } // macro template
 
