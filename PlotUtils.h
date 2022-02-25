@@ -6,6 +6,12 @@
 #include "Okabelto.h"
 
 //-----------------------------------------------------------------------------
+void LoadTH1(TFile*, std::string const& path)
+{
+  // call Get to fetch from file, and check the pointer is not null
+} // function LoadTH1
+
+//-----------------------------------------------------------------------------
 void DrawTH1(TH1* h, int color, std::string const& name)
 {
   TCanvas c("c", "c", 1600, 900);
@@ -18,9 +24,9 @@ void DrawTH1(TH1* h, int color, std::string const& name)
 } // function DrawTH1
 
 //-----------------------------------------------------------------------------
-void LoadAndDrawTH1(std::string path, int color, std::string const& name)
+void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& name)
 {
-  // unimplemented
+  // call LoadTH1 to load histogram, and then DrawTH1 to draw it
 } // function LoadAndDrawTH1
 
 //-----------------------------------------------------------------------------
