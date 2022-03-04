@@ -2,13 +2,23 @@
 
 #include "TCanvas.h"
 #include "TH1.h"
-
+#include "TFile.h"
 #include "Okabelto.h"
 
 //-----------------------------------------------------------------------------
-void LoadTH1(TFile*, std::string const& path)
+TH1F* LoadTH1(TFile* f, std::string const& path)
 {
   // call Get to fetch from file, and check the pointer is not null
+ 
+
+  TH1F* h = (TH1F*)f->Get(path.c_str());
+  if (!h){
+	  std::cerr << path << " not found! exiting" << std::endl;
+	  exit(1);
+  }
+ 
+  return h;
+
 } // function LoadTH1
 
 //-----------------------------------------------------------------------------
@@ -27,6 +37,13 @@ void DrawTH1(TH1* h, int color, std::string const& name)
 void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& name)
 {
   // call LoadTH1 to load histogram, and then DrawTH1 to draw it
+  
+  TH1F* h = LoadTH1(f, path);
+  
+  DrawTH1(h, color, name);
+
+  delete h;
+
 } // function LoadAndDrawTH1
 
 //-----------------------------------------------------------------------------
