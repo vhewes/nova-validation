@@ -6,10 +6,20 @@
 #include "Okabelto.h"
 
 //-----------------------------------------------------------------------------
-void LoadTH1(TFile*, std::string const& path)
+TH1F* LoadTH1(TFile* f, std::string const& path)
 {
+  TH1F* h = (TH1F*)f->Get(path.c_str());
+  if (!h) {
+     std::cerr << path << " not found! exiting" <<std::endl;
+     exit(1);
+  }
+
+  return h;
+
+}
+
   // call Get to fetch from file, and check the pointer is not null
-} // function LoadTH1
+  // function LoadTH1
 
 //-----------------------------------------------------------------------------
 void DrawTH1(TH1* h, int color, std::string const& name)
@@ -21,13 +31,20 @@ void DrawTH1(TH1* h, int color, std::string const& name)
   h->Draw("hist");
   c.SaveAs((name+".png").c_str());
   c.SaveAs((name+".pdf").c_str());
-} // function DrawTH1
+}
+  // function DrawTH1
 
 //-----------------------------------------------------------------------------
 void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& name)
-{
+{ 
+  TH1F* h = LoadTH1(f, path); // calling LoadTH1
+  DrawTH1(h, color, name); // calling DrawTH1
+  
+  delete h;
+}
+
   // call LoadTH1 to load histogram, and then DrawTH1 to draw it
-} // function LoadAndDrawTH1
+  // function LoadAndDrawTH1
 
 //-----------------------------------------------------------------------------
 void RecursivePlot(TDirectory* dir, std::string const& name="")
