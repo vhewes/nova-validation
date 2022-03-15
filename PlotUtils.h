@@ -2,12 +2,9 @@
 
 #include "TCanvas.h"
 #include "TH1.h"
-<<<<<<< HEAD
 #include "TH2.h"
 
-=======
 #include "TFile.h"
->>>>>>> 753ab9b11304150aa64b1487da59f947f9e2c578
 #include "Okabelto.h"
 
 //-----------------------------------------------------------------------------
@@ -24,7 +21,6 @@ TH1F* LoadTH1(TFile* f, std::string const& path)
 }
 
   // call Get to fetch from file, and check the pointer is not null
-<<<<<<< HEAD
   // function LoadTH1
 
 //-----------------------------------------------------------------------------
@@ -38,19 +34,6 @@ TH2F* LoadTH2(TFile* f, std::string const& path)
 
  return g;
 }
-=======
- 
-
-  TH1F* h = (TH1F*)f->Get(path.c_str());
-  if (!h){
-	  std::cerr << path << " not found! exiting" << std::endl;
-	  exit(1);
-  }
- 
-  return h;
-
-} // function LoadTH1
->>>>>>> 753ab9b11304150aa64b1487da59f947f9e2c578
 
 //-----------------------------------------------------------------------------
 void DrawTH1(TH1* h, int color, std::string const& name)
