@@ -18,13 +18,8 @@ TH1F* LoadTH1(TFile* f, std::string const& path)
      std::cerr << path << " not found! exiting" <<std::endl;
      exit(1);
   }
-
   return h;
-
 }
-
-  // call Get to fetch from file, and check the pointer is not null
-  // function LoadTH1
 
 //-----------------------------------------------------------------------------
 TH2F* LoadTH2(TFile* f, std::string const& path)
@@ -34,21 +29,7 @@ TH2F* LoadTH2(TFile* f, std::string const& path)
     std::cerr << path << " not found! exiting" <<std::endl;
     exit(1);
  }
-
  return g;
-}
-
-//-----------------------------------------------------------------------------
-// Loading 2D histograms
-TH2F* LoadTH2(TFile* f, std::string const& path)
-{
-  TH2F* g = (TH2F*)f->Get(path.c_str());
-  if (!g){
-	  std::cerr << path << "not found! exiting" << std::endl;
-	  exit(1);
-  }
-  
-  return g;
 }
 
 //-----------------------------------------------------------------------------
@@ -65,26 +46,28 @@ void DrawTH1(TH1* h, int color, std::string const& name)
 }
   // function DrawTH1
 
+//-----------------------------------------------------------------------------
+void DrawTH1(std::vector<TH1*> hists, int color, std:: string const& name)
+{
+  TCanvas c("c", "c", 1600, 900);
+  for (TH1* h : hists) {
+    // draw the histogram
+    // changing the colour with each histogram
+    //   - every time we iterate, we increment the colour by one
+    // don't set line colour to black and fill colour to a distinct colour
+    // instead, just set the line colour and don't set fill colour at all
+    // drawing on the same canvas as opposed to new ones
+    //   - change the "hist" option to "hist same"
+    //     (it's totally ok to call "hist same" for the first hist)
+  }
+  // save the plot
+} // function DrawTH1
+
 //----------------------------------------------------------------------------
 //Drawing 2D hist
 void DrawTH2(TH2* g, int color, std::string const& name)
 {
   TCanvas c("c", "c", 1600, 900);
-  g->SetLineColor(kBlack);
-  g->SetFillColor(color);
-  g->SetLineWidth(1);
-  g->Draw("colz");
-  c.SaveAs((name+".png").c_str());
-  c.SaveAs((name+".pdf").c_str());
-}
-
-//-----------------------------------------------------------------------------
-void DrawTH2(TH2* g, int color, std::string const& name)
-=======
-//Load and Draw 1D hist
-void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& name)
-{
- TCanvas c("c", "c", 1600, 900);
   g->SetLineColor(kBlack);
   g->SetFillColor(color);
   g->SetLineWidth(1);
@@ -100,15 +83,6 @@ void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& na
   DrawTH1(h, color, name); // calling DrawTH1
   
   delete h;
-}
-
-//-----------------------------------------------------------------------------
-void LoadAndDrawTH2(TFile* f, std::string path, int color, std::string const& name)
-{
-  TH2F* g = LoadTH2(f, path); 
-  DrawTH2(g, color, name);
-
-  delete g;
 }
 
 //-----------------------------------------------------------------------------
