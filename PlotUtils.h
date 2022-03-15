@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TCanvas.h"
+#include "TH2.h"
 #include "TH1.h"
 #include "TH2.h"
 
@@ -8,8 +9,10 @@
 #include "Okabelto.h"
 
 //-----------------------------------------------------------------------------
+//Loading 1D histograms
 TH1F* LoadTH1(TFile* f, std::string const& path)
 {
+  // call Get to fetch from file, and check the pointer is not null
   TH1F* h = (TH1F*)f->Get(path.c_str());
   if (!h) {
      std::cerr << path << " not found! exiting" <<std::endl;
@@ -36,6 +39,20 @@ TH2F* LoadTH2(TFile* f, std::string const& path)
 }
 
 //-----------------------------------------------------------------------------
+// Loading 2D histograms
+TH2F* LoadTH2(TFile* f, std::string const& path)
+{
+  TH2F* g = (TH2F*)f->Get(path.c_str());
+  if (!g){
+	  std::cerr << path << "not found! exiting" << std::endl;
+	  exit(1);
+  }
+  
+  return g;
+}
+
+//-----------------------------------------------------------------------------
+//Drawing 1D hist
 void DrawTH1(TH1* h, int color, std::string const& name)
 {
   TCanvas c("c", "c", 1600, 900);
@@ -48,8 +65,24 @@ void DrawTH1(TH1* h, int color, std::string const& name)
 }
   // function DrawTH1
 
+//----------------------------------------------------------------------------
+//Drawing 2D hist
+void DrawTH2(TH2* g, int color, std::string const& name)
+{
+  TCanvas c("c", "c", 1600, 900);
+  g->SetLineColor(kBlack);
+  g->SetFillColor(color);
+  g->SetLineWidth(1);
+  g->Draw("colz");
+  c.SaveAs((name+".png").c_str());
+  c.SaveAs((name+".pdf").c_str());
+}
+
 //-----------------------------------------------------------------------------
 void DrawTH2(TH2* g, int color, std::string const& name)
+=======
+//Load and Draw 1D hist
+void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& name)
 {
  TCanvas c("c", "c", 1600, 900);
   g->SetLineColor(kBlack);
@@ -73,6 +106,17 @@ void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& na
 void LoadAndDrawTH2(TFile* f, std::string path, int color, std::string const& name)
 {
   TH2F* g = LoadTH2(f, path); 
+  DrawTH2(g, color, name);
+
+  delete g;
+}
+
+//-----------------------------------------------------------------------------
+//Load and Draw 2D hist
+void LoadAndDrawTH2(TFile* f, std::string path, int color, std::string const& name)
+{
+  TH2F* g = LoadTH2(f, path);
+
   DrawTH2(g, color, name);
 
   delete g;

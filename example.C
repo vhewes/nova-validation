@@ -29,7 +29,14 @@ void example()
   LoadAndDrawTH1(f, "validgenie/Enu", kOkabelto1, "plots/enu");
   LoadAndDrawTH1(f, "validgenie/numu/Enu", kOkabelto2, "plots/enunumu");
 
+<<<<<<< HEAD
   LoadAndDrawTH2(f, "validgenie/Vxy", kOkabelto3, "plots/Vxy");
+=======
+  //DrawTH2(Vxy, kOkabelto1, "plots/Vxy");
+
+  LoadAndDrawTH2(f, "validgenie/Vxy", kOkabelto1, "plots/Vxy");
+
+>>>>>>> 924a57f3e73c1423c7e56ad181a5e0ef41db5d19
 
   // recursively plot everything
   // RecursivePlot(f);
