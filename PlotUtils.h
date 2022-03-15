@@ -2,6 +2,7 @@
 
 #include "TCanvas.h"
 #include "TH1.h"
+#include "TH2.h"
 
 #include "Okabelto.h"
 
@@ -22,6 +23,18 @@ TH1F* LoadTH1(TFile* f, std::string const& path)
   // function LoadTH1
 
 //-----------------------------------------------------------------------------
+TH2F* LoadTH2(TFile* f, std::string const& path)
+{
+ TH2F* g = (TH2F*)f->Get(path.c_str());
+ if (!g) {
+    std::cerr << path << " not found! exiting" <<std::endl;
+    exit(1);
+ }
+
+ return g;
+}
+
+//-----------------------------------------------------------------------------
 void DrawTH1(TH1* h, int color, std::string const& name)
 {
   TCanvas c("c", "c", 1600, 900);
@@ -35,6 +48,18 @@ void DrawTH1(TH1* h, int color, std::string const& name)
   // function DrawTH1
 
 //-----------------------------------------------------------------------------
+void DrawTH2(TH2* g, int color, std::string const& name)
+{
+ TCanvas c("c", "c", 1600, 900);
+  g->SetLineColor(kBlack);
+  g->SetFillColor(color);
+  g->SetLineWidth(1);
+  g->Draw("colz");
+  c.SaveAs((name+".png").c_str());
+  c.SaveAs((name+".pdf").c_str());
+}
+
+//-----------------------------------------------------------------------------
 void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& name)
 { 
   TH1F* h = LoadTH1(f, path); // calling LoadTH1
@@ -45,6 +70,15 @@ void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& na
 
   // call LoadTH1 to load histogram, and then DrawTH1 to draw it
   // function LoadAndDrawTH1
+
+//-----------------------------------------------------------------------------
+void LoadAndDrawTH2(TFile* f, std::string path, int color, std::string const& name)
+{
+  TH2F* g = LoadTH2(f, path); 
+  DrawTH2(g, color, name);
+
+  delete g;
+}
 
 //-----------------------------------------------------------------------------
 void RecursivePlot(TDirectory* dir, std::string const& name="")
