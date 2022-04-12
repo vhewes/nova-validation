@@ -12,6 +12,7 @@ void example()
   // draw example TH1s
   LoadAndDrawTH1(f, "validgenie/Enu", kOkabelto1, "plots/enu");
   LoadAndDrawTH1(f, "validgenie/numu/Enu", kOkabelto2, "plots/enunumu");
+  LoadAndDrawTH1(f, "validgenie/nue/Enu", kOkabelto3, "plots/enunue");
 
   // draw example TH2s
   LoadAndDrawTH2(f, "validgenie/Vxy", kOkabelto1, "plots/Vxy");
@@ -23,6 +24,8 @@ void example()
   hists.push_back(LoadTH1(f, "validgenie/nue/Enu"));
   DrawTH1(hists, kOkabelto1, "plots/enu_multi");
 
+  DrawTHStack(hists, kOkabelto1, "plots/enu_stacked");
+  
   // recursively plot everything
   // RecursivePlot(f);
 
