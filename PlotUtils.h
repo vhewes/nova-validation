@@ -53,32 +53,18 @@ void DrawTH1(std::vector<TH1*> hists, int color, std:: string const& name)
   int nHists = hists.size();
     
    TCanvas c("c", "c", 1600, 900);
-  // auto legend = new TLegend(); -- attempt to create legend
 
   // for (TH1* h : hists) {
-
-    // draw the histogram
-    // changing the colour with each histogram
-    //   - every time we iterate, we increment the colour by one
-    // don't set line colour to black and fill colour to a distinct colour
-    // instead, just set the line colour and don't set fill colour at all
-    // drawing on the same canvas as opposed to new ones
-    //   - change the "hist" option to "hist same"
-    //     (it's totally ok to call "hist same" for the first hist)
 
    for (size_t i=0; i < nHists; ++i){
 
 	hists[i]->SetLineColor(color++);
 		
-	//legend->AddEntry(hists[i], name, "l"); -- atempt to draw legend
-
 	if (i==0){
 		hists[i]->Draw();
 	} else {
 		hists[i]->Draw("same");
 	}
-	
-	//legend->Draw();
   }
 
   c.SaveAs((name+".png").c_str());
@@ -89,24 +75,22 @@ void DrawTH1(std::vector<TH1*> hists, int color, std:: string const& name)
 //Drawing stacked histograms
 void DrawTHStack(std::vector<TH1*> hists, int color, std:: string const& name)
 {
-	int nHists = hists.size();
+   int nHists = hists.size();
 
-	TCanvas c("c", "c", 1600, 900);
+   TCanvas c("c","c", 1600, 900);
+   THStack *hs = new THStack("hs", "");
+   
+   for (size_t i=0; i < nHists; ++i){
+	hists[i]->SetFillColor(color++);
+	hs->Add(hists[i]);
+   }
 
-	for (size_t i=0; i < nHists; ++i){
+  // TCanvas c("c", "c", 1600, 900);
+   hs->Draw();
 
-		hists[i]->SetFillColor(color++);
-
-		//if (i==0){
-		//	hists[i]->Draw();
-		//} else {
-		//	hists[i]->Draw("same");
-		//}
-
-	}
-	hists->Draw();
-	c.SaveAs((name+".png").c_str());
-	c.SaveAs((name+".pdf").c_str());
+   c.SaveAs((name+".png").c_str());
+   c.SaveAs((name+".pdf").c_str());
+ 
 }
 //----------------------------------------------------------------------------
 //Function to draw graph legend
