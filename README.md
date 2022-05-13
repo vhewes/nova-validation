@@ -24,7 +24,6 @@ rootbrowse valid.hist.root
   - Function to plot multiple 1D histograms as a stacked histogram (11th March)
   - Function to plot ratios of 1D histograms to reference distribution (18th March)
 - Multiple histogram plotting at file level
-  - Plot the same histograms on the same canvas for subselections in file (ie. neutrino energy for different ν flavours, etc) (20th May)
   - Plot the same histograms from multiple files on the same canvas (27th May)
 - Document forming
   - Utility to generate LaTeX document format (3rd June)
