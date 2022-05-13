@@ -72,7 +72,7 @@ void DrawTH1(std::vector<TH1*> hists, int color, std:: string const& name)
   // save the plot
 } // function DrawTH1
 //---------------------------------------------------------------------------
-//Drawing stacked histograms
+//Drawing Stacked Histograms
 void DrawTHStack(std::vector<TH1*> hists, int color, std:: string const& name)
 {
    int nHists = hists.size();
@@ -85,12 +85,36 @@ void DrawTHStack(std::vector<TH1*> hists, int color, std:: string const& name)
 	hs->Add(hists[i]);
    }
 
-  // TCanvas c("c", "c", 1600, 900);
    hs->Draw();
 
    c.SaveAs((name+".png").c_str());
    c.SaveAs((name+".pdf").c_str());
  
+}
+//----------------------------------------------------------------------------
+//Drawing Ratio histograms
+void DrawTHRatio(std::vector<TH1*> hists, int color, std:: string const& name)
+{
+   int nHists = hists.size();
+  
+   TCanvas c("c", "c", 1600, 900);
+
+   for (size_t i=1; i < nHists; ++i){
+     
+	 hists[i]->SetLineColor(color++);
+
+	if (i==0){
+       		hists[i]->Draw();
+	} else { 
+		hists[i]->Draw("same");
+		TH1* hRatio = (TH1*)hists[0]->Clone("hRatio");
+		hRatio->Divide(hists[i]);
+		hRatio->Draw();
+	}		  
+   }
+
+   c.SaveAs((name+".png").c_str());
+   c.SaveAs((name+".pdf").c_str());
 }
 //----------------------------------------------------------------------------
 //Function to draw graph legend

@@ -25,7 +25,24 @@ void example()
   DrawTH1(hists, kOkabelto1, "plots/enu_multi");
 
   DrawTHStack(hists, kOkabelto1, "plots/enu_stacked");
-  
+
+
+  std::vector<TH1*> hists12;
+  hists12.push_back(LoadTH1(f, "validgenie/Enu"));
+  hists12.push_back(LoadTH1(f, "validgenie/numu/Enu"));
+
+  std::vector<TH1*> hists13;
+  hists13.push_back(LoadTH1(f, "validgenie/Enu"));
+  hists13.push_back(LoadTH1(f, "validgenie/nue/Enu"));
+
+  std::vector<TH1*> hists23;
+  hists23.push_back(LoadTH1(f, "validgenie/numu/Enu"));
+  hists23.push_back(LoadTH1(f, "validgenie/nue/Enu"));
+
+  DrawTHRatio(hists12, kOkabelto4, "plots/enu_ratio_12");
+  DrawTHRatio(hists13, kOkabelto5, "plots/enu_ratio_13");
+  DrawTHRatio(hists23, kOkabelto6, "plots/enu_ratio_23");
+
   // recursively plot everything
   // RecursivePlot(f);
 
