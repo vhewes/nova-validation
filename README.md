@@ -23,9 +23,11 @@ rootbrowse valid.hist.root
   - Function to plot multiple 1D histograms on the same canvas (4th March)
   - Function to plot multiple 1D histograms as a stacked histogram (11th March)
   - Function to plot ratios of 1D histograms to reference distribution (18th March)
+- Multiple histogram plotting at file level
+  - Plot the same histograms from multiple files on the same canvas (27th May)
 - Document forming
-  - Utility to generate LaTeX document format (1st April)
-  - Utility to generate LaTeX slide format (8th April)
+  - Utility to generate LaTeX document format (3rd June)
+  - Utility to generate LaTeX slide format (10th June)
 
 ## Resources
 
