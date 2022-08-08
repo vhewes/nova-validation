@@ -1,5 +1,7 @@
 #pragma once
-
+#include <iostream>
+#include "THStack.h"
+#include "TKey.h"
 #include "TCanvas.h"
 #include "vector"
 #include "TH1.h"

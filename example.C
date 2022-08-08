@@ -1,13 +1,12 @@
 // example.C by j hewes <jhewes15@fnal.gov>
 
 #include "TFile.h"
-
 #include "PlotUtils.h"
 
-void example()
+void example(const std::string& fname)
 {
   // open the input file
-  TFile* f = TFile::Open("valid.hist.root", "read");
+  TFile* f = TFile::Open(fname.c_str(), "read");
 
   // draw example TH1s
   LoadAndDrawTH1(f, "validgenie/Enu", kOkabelto1, "plots/enu");
