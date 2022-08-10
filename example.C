@@ -8,43 +8,45 @@ void example()
 {
   // open the input file
   TFile* f = TFile::Open("valid.hist.root", "read");
+  TFile* b = TFile::Open("prod5.root", "read");
+  TFile* s = TFile::Open("prod5p1.root", "read");
 
   // draw example TH1s
-  LoadAndDrawTH1(f, "validgenie/Enu", kOkabelto1, "plots/enu");
-  LoadAndDrawTH1(f, "validgenie/numu/Enu", kOkabelto2, "plots/enunumu");
-  LoadAndDrawTH1(f, "validgenie/nue/Enu", kOkabelto3, "plots/enunue");
+//  LoadAndDrawTH1(f, "validgenie/Enu", kOkabelto1, "plots/enu");
+//  LoadAndDrawTH1(f, "validgenie/numu/Enu", kOkabelto2, "plots/enunumu");
+//  LoadAndDrawTH1(f, "validgenie/nue/Enu", kOkabelto3, "plots/enunue");
 
   // draw example TH2s
-  LoadAndDrawTH2(f, "validgenie/Vxy", kOkabelto1, "plots/Vxy");
+//  LoadAndDrawTH2(f, "validgenie/Vxy", kOkabelto1, "plots/Vxy");
 
   // create and draw TH1 vector
-  std::vector<TH1*> hists;
-  hists.push_back(LoadTH1(f, "validgenie/Enu"));
-  hists.push_back(LoadTH1(f, "validgenie/numu/Enu"));
-  hists.push_back(LoadTH1(f, "validgenie/nue/Enu"));
-  DrawTH1(hists, kOkabelto1, "plots/enu_multi");
+//  std::vector<TH1*> hists;
+//  hists.push_back(LoadTH1(f, "validgenie/Enu"));
+//  hists.push_back(LoadTH1(f, "validgenie/numu/Enu"));
+//  hists.push_back(LoadTH1(f, "validgenie/nue/Enu"));
+//  DrawTH1(hists, kOkabelto1, "plots/enu_multi");
 
-  DrawTHStack(hists, kOkabelto1, "plots/enu_stacked");
+//  DrawTHStack(hists, kOkabelto1, "plots/enu_stacked");
 
 
-  std::vector<TH1*> hists12;
-  hists12.push_back(LoadTH1(f, "validgenie/Enu"));
-  hists12.push_back(LoadTH1(f, "validgenie/numu/Enu"));
+//  std::vector<TH1*> hists12;
+//  hists12.push_back(LoadTH1(f, "validgenie/Enu"));
+//  hists12.push_back(LoadTH1(f, "validgenie/numu/Enu"));
 
-  std::vector<TH1*> hists13;
-  hists13.push_back(LoadTH1(f, "validgenie/Enu"));
-  hists13.push_back(LoadTH1(f, "validgenie/nue/Enu"));
+//  std::vector<TH1*> hists13;
+//  hists13.push_back(LoadTH1(f, "validgenie/Enu"));
+//  hists13.push_back(LoadTH1(f, "validgenie/nue/Enu"));
 
-  std::vector<TH1*> hists23;
-  hists23.push_back(LoadTH1(f, "validgenie/numu/Enu"));
-  hists23.push_back(LoadTH1(f, "validgenie/nue/Enu"));
+//  std::vector<TH1*> hists23;
+//  hists23.push_back(LoadTH1(f, "validgenie/numu/Enu"));
+//  hists23.push_back(LoadTH1(f, "validgenie/nue/Enu"));
 
-  DrawTHRatio(hists12, kOkabelto4, "plots/enu_ratio_12");
-  DrawTHRatio(hists13, kOkabelto5, "plots/enu_ratio_13");
-  DrawTHRatio(hists23, kOkabelto6, "plots/enu_ratio_23");
+//  DrawTHRatio(hists12, kOkabelto4, "plots/enu_ratio_12");
+//  DrawTHRatio(hists13, kOkabelto5, "plots/enu_ratio_13");
+//  DrawTHRatio(hists23, kOkabelto6, "plots/enu_ratio_23");
 
   // recursively plot everything
-  // RecursivePlot(f);
+  RecursivePlot(s);
 
 } // macro template
 

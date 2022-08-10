@@ -4,6 +4,7 @@
 #include "vector"
 #include "TH1.h"
 #include "TH2.h"
+#include "TLegend.h"
 
 #include "TFile.h"
 #include "Okabelto.h"
@@ -20,7 +21,6 @@ TH1F* LoadTH1(TFile* f, std::string const& path)
   }
   return h;
 }
-
 //-----------------------------------------------------------------------------
 TH2F* LoadTH2(TFile* f, std::string const& path)
 {
@@ -31,7 +31,6 @@ TH2F* LoadTH2(TFile* f, std::string const& path)
  }
  return g;
 }
-
 //-----------------------------------------------------------------------------
 //Drawing 1D hist
 void DrawTH1(TH1* h, int color, std::string const& name)
@@ -44,26 +43,28 @@ void DrawTH1(TH1* h, int color, std::string const& name)
   c.SaveAs((name+".png").c_str());
   c.SaveAs((name+".pdf").c_str());
 }
-  // function DrawTH1
-
+// function DrawTH1
 //-----------------------------------------------------------------------------
 //Drawing multiple graphs on same canvas
-void DrawTH1(std::vector<TH1*> hists, int color, std:: string const& name)
+void DrawTH1(std::vector<TH1*> hists,std::vector<string> files, int color, std:: string const& name)
 {
   int nHists = hists.size();
     
-   TCanvas c("c", "c", 1600, 900);
+  TCanvas c("c", "c", 1600, 900);
+  auto legend = new TLegend(0.6, 0.775, 0.78, 0.9); //(x1, y1, x2, y2) should  put in top right corner
+  legend->SetHeader(name.c_str(), "C");
 
-  // for (TH1* h : hists) {
-
-   for (size_t i=0; i < nHists; ++i){
+  for (size_t i=0; i < nHists; ++i){
 
 	hists[i]->SetLineColor(color++);
+	legend->AddEntry(hists[i],files[i].c_str(),"l"); 
 		
 	if (i==0){
 		hists[i]->Draw();
+		legend->Draw();
 	} else {
 		hists[i]->Draw("same");
+		legend->Draw("same");
 	}
   }
 
@@ -73,23 +74,26 @@ void DrawTH1(std::vector<TH1*> hists, int color, std:: string const& name)
 } // function DrawTH1
 //---------------------------------------------------------------------------
 //Drawing Stacked Histograms
-void DrawTHStack(std::vector<TH1*> hists, int color, std:: string const& name)
+void DrawTHStack(std::vector<TH1*> hists, std::vector<string> files, int color, std:: string const& name)
 {
    int nHists = hists.size();
 
    TCanvas c("c","c", 1600, 900);
    THStack *hs = new THStack("hs", "");
+   auto legend = new TLegend(0.6,0.775, 0.78, 0.9);
+   legend->SetHeader(name.c_str(), "C");
    
    for (size_t i=0; i < nHists; ++i){
 	hists[i]->SetFillColor(color++);
 	hs->Add(hists[i]);
+	legend->AddEntry(hists[i], files[i].c_str(), "f");
    }
 
    hs->Draw();
+   legend->Draw();
 
    c.SaveAs((name+".png").c_str());
    c.SaveAs((name+".pdf").c_str());
- 
 }
 //----------------------------------------------------------------------------
 //Drawing Ratio histograms
@@ -112,16 +116,10 @@ void DrawTHRatio(std::vector<TH1*> hists, int color, std:: string const& name)
 		hRatio->Draw();
 	}		  
    }
-
+   
    c.SaveAs((name+".png").c_str());
    c.SaveAs((name+".pdf").c_str());
 }
-//----------------------------------------------------------------------------
-//Function to draw graph legend
-
-
-
-
 //----------------------------------------------------------------------------
 //Drawing 2D hist
 void DrawTH2(TH2* g, int color, std::string const& name)
@@ -134,7 +132,6 @@ void DrawTH2(TH2* g, int color, std::string const& name)
   c.SaveAs((name+".png").c_str());
   c.SaveAs((name+".pdf").c_str());
 }
-
 //-----------------------------------------------------------------------------
 void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& name)
 { 
@@ -143,7 +140,6 @@ void LoadAndDrawTH1(TFile* f, std::string path, int color, std::string const& na
   
   delete h;
 }
-
 //-----------------------------------------------------------------------------
 //Load and Draw 2D hist
 void LoadAndDrawTH2(TFile* f, std::string path, int color, std::string const& name)
@@ -154,7 +150,6 @@ void LoadAndDrawTH2(TFile* f, std::string path, int color, std::string const& na
 
   delete g;
 }
-
 //-----------------------------------------------------------------------------
 void RecursivePlot(TDirectory* dir, std::string const& name="")
 {

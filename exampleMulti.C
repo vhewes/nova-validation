@@ -37,18 +37,22 @@ void exampleMulti()
 
 
 //Drawing each individual graph - FILE FIRST
-	DrawTH1Indiv(files, bars, kOkabelto1);
+//	DrawTH1Indiv(files, bars, kOkabelto1);
 
 //Drawing each individual graph - GRAPH FIRST
-	DrawTH1Multi(files, bars, kOkabelto1);
+//	DrawTH1Multi(files, bars, kOkabelto1);
 
 // Drawing Layered Graph
-	DrawTH1MultiLayered(files, bars, kOkabelto1);
+//	DrawTH1MultiLayered(files, bars, kOkabelto1);
 
 // Drawing Ratio Graph
-	DrawTH1MultiRatio(files, bars, kOkabelto1);
+//	DrawTH1MultiRatio(files, bars, kOkabelto1);
 
 // Drawing Stacked Graph
-	DrawTH1MultiStacked(files, bars, kOkabelto1);
+//	DrawTH1MultiStacked(files, bars, kOkabelto1);
+
+// Recursive Plotting
+	TFile* f = TFile::Open("valid.hist.root", "read");
+	RecursivePlotting(f, files);	
 
 }
