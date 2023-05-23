@@ -40,6 +40,7 @@ void DrawTH1(TH1* h, int color, std::string const& name)
   h->SetFillColor(color);
   h->SetLineWidth(1);
   h->Draw("hist");
+<<<<<<< HEAD
   c.SaveAs(("plots/"+name+".png").c_str());
   c.SaveAs(("plots/"+name+".pdf").c_str());
 
@@ -48,6 +49,14 @@ void DrawTH1(TH1* h, int color, std::string const& name)
 // function DrawTH1
 //-----------------------------------------------------------------------------
 //Drawing Layered Histograms
+=======
+  c.SaveAs((name+".png").c_str());
+  c.SaveAs((name+".pdf").c_str());
+}
+// function DrawTH1
+//-----------------------------------------------------------------------------
+//Drawing multiple graphs on same canvas
+>>>>>>> 32ad2897efb97a3dafc68a475693b99364c6cfa7
 void DrawTH1(std::vector<TH1*> hists,std::vector<string> files, int color, std:: string const& name)
 {
   int nHists = hists.size();
@@ -123,6 +132,7 @@ void DrawTHRatio(std::vector<TH1*> hists, int color, std:: string const& name)
    c.SaveAs((name+".pdf").c_str());
 }
 //----------------------------------------------------------------------------
+<<<<<<< HEAD
 //Drawing Layered Ratio histograms
 void DrawLayeredRatio(std::vector<TH1*> hists, int color, std:: string const& name)
 {
@@ -144,6 +154,8 @@ void DrawLayeredRatio(std::vector<TH1*> hists, int color, std:: string const& na
    }
 }
 //----------------------------------------------------------------------------
+=======
+>>>>>>> 32ad2897efb97a3dafc68a475693b99364c6cfa7
 //Drawing 2D hist
 void DrawTH2(TH2* g, int color, std::string const& name)
 {

@@ -60,12 +60,18 @@ void DrawTH1Multi(std::vector<string> files, std::vector<string> bars, int color
 			std::replace(graph.begin(), graph.end(), '/', '~');
 			std::replace(graph.begin(), graph.end(), '.', '-');
 
+<<<<<<< HEAD
 			std::string latexImage = graph + ".png";
 
 			LoadAndDrawTH1(f, bars[i], color++, "multi/" +graph);
 		}
 	}
 
+=======
+			LoadAndDrawTH1(f, bars[i], color++, "multi/" +graph);
+		}
+	}
+>>>>>>> 32ad2897efb97a3dafc68a475693b99364c6cfa7
 }
 //-----------------------------------------------------------------------------------------
 // Drawing Layered Histograms of histograms with same name from different ROOT files
@@ -193,7 +199,10 @@ void RecursivePlotting(TDirectory* dir, std::vector<string> files, std::string c
 		std::string name = "multi/" + tempname;
 
 		DrawTH1(hists, files, kOkabelto1, name);
+<<<<<<< HEAD
 		DrawTHStack(hists, files, kOkabelto1, name);
+=======
+>>>>>>> 32ad2897efb97a3dafc68a475693b99364c6cfa7
 
 	}
 	else{
