@@ -106,7 +106,7 @@ void PDFCreate(std::string const& name)
 
 		my_file << "\\begin{document}" << endl;
 		my_file << endl;
-		my_file << "\\begin{figure}[h]" <<endl;	
+		my_file << "\\begin{figure}[ht]" <<endl;	
 
 		my_file.close();
 	}
@@ -131,20 +131,6 @@ void PDFClose(std::string const& name)
 		my_file.close();
 	}
 
-	cout << "Would you like to compile the PDF? (y/n)";
-	
-	string choice;	
-	cin >> choice;
-
-	if(choice == "y"){
-		cout << name+ ".pdf was created!" << endl;
-
-	//	pdflatex -halt-on-error -output-directory figures figures/Figures-Test.tex
-	}
-	else if(choice == "n"){
-
-		cout << name+ ".tex is ready" << endl;
-	}
 }
 //-----------------------------------------------------------------
 void NewPage(std::string const& name)
@@ -159,7 +145,7 @@ void NewPage(std::string const& name)
 	else{
 		my_file << "\\end{figure}" << endl;
 		my_file << "\\newpage" << endl;
-		my_file << "\\begin{figure}[h]" << endl;
+		my_file << "\\begin{figure}[ht]" << endl;
 
 		my_file.close();
 	}
