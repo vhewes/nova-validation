@@ -18,7 +18,7 @@
 //-------------------------------------------------------------------------------------------------
 // Drawing each individual graph
 // loads the FILE first then the graphs from the file
-void DrawTH1Indiv(std::vector<string> files, std::vector<string> bars, int color)
+void DrawTH1Indiv(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
 {
 		
 	int nFiles = files.size();
@@ -33,18 +33,18 @@ void DrawTH1Indiv(std::vector<string> files, std::vector<string> bars, int color
 			//creates the name for each grach and changes some characters
 			//so that it can be saved	
 			std::string graph = files[i] + "-" +  bars[j];
-			std::replace(graph.begin(), graph.end(), '/', '~');
-			std::replace(graph.begin(), graph.end(), '.', '-');
+			std::replace(graph.begin(), graph.end(), '/', '_');
+			std::replace(graph.begin(), graph.end(), '.', '_');
 			
 			//Calls LoadAndDrawTH1 from PlotUtils.h
-			LoadAndDrawTH1(f, bars[j], color++, "figures/" +graph);
+			LoadAndDrawTH1(f, bars[j], color++, outputDest+ "/" +graph);
 		}
 	}
 }
 //--------------------------------------------------------------------------------------
 // Drawing each graph individually
 // Calls with GRAPH to load first then calls the file to load it from
-void DrawTH1Multi(std::vector<string> files, std::vector<string> bars, int color)
+void DrawTH1Multi(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
 {
 	int nFiles = files.size();
 	int nBars = bars.size();
@@ -57,17 +57,17 @@ void DrawTH1Multi(std::vector<string> files, std::vector<string> bars, int color
 
 			std::string graph = bars[i] + "-" + files[j];
 
-			std::replace(graph.begin(), graph.end(), '/', '~');
-			std::replace(graph.begin(), graph.end(), '.', '-');
+			std::replace(graph.begin(), graph.end(), '/', '_');
+			std::replace(graph.begin(), graph.end(), '.', '_');
 
-			LoadAndDrawTH1(f, bars[i], color++, "figures/" +graph);
+			LoadAndDrawTH1(f, bars[i], color++, outputDest+ "/" +graph);
 		}
 	}
 
 }
 //-----------------------------------------------------------------------------------------
 // Drawing Layered Histograms of histograms with same name from different ROOT files
-void DrawTH1MultiLayered(std::vector<string> files, std::vector<string> bars, int color)
+void DrawTH1MultiLayered(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
 {
 	int nFiles = files.size();
 	int nBars = bars.size();
@@ -92,7 +92,7 @@ void DrawTH1MultiLayered(std::vector<string> files, std::vector<string> bars, in
 		std::string tempname = bars[i];
 		std::replace(tempname.begin(), tempname.end(), '/', '_');
 
-		std::string name = "figures/" + tempname + "_layered" ;
+		std::string name = outputDest+ "/" + tempname + "_layered" ;
 		
 		//Runs Layered graph functiion from PlotUtils.h
 		DrawTH1(hists, files, color, name);
@@ -100,7 +100,7 @@ void DrawTH1MultiLayered(std::vector<string> files, std::vector<string> bars, in
 }
 //----------------------------------------------------------------------------------------------
 // Creating Ratio Graph
-void DrawTH1MultiRatio(std::vector<string> files, std::vector<string> bars, int color)
+void DrawTH1MultiRatio(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
 {
 	int nFiles = files.size();
 	int nBars = bars.size();
@@ -119,7 +119,7 @@ void DrawTH1MultiRatio(std::vector<string> files, std::vector<string> bars, int 
 		std::string tempname = bars[i];
 		std::replace(tempname.begin(), tempname.end(), '/', '_');
 
-		std::string name = "figures/" + tempname + "_ratio" ; 
+		std::string name = outputDest+ "/" + tempname + "_ratio" ; 
 		
 		//Runs Ratio graph function from PlotUtils.h
 		DrawTHRatio(hists, color, name);
@@ -127,7 +127,7 @@ void DrawTH1MultiRatio(std::vector<string> files, std::vector<string> bars, int 
 }
 //-----------------------------------------------------------------------------------------
 // Creating Stacked Graph
-void DrawTH1MultiStacked(std::vector<string> files, std::vector<string> bars, int color)
+void DrawTH1MultiStacked(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
 {
 	int nFiles = files.size();
 	int nBars = bars.size();
@@ -146,7 +146,7 @@ void DrawTH1MultiStacked(std::vector<string> files, std::vector<string> bars, in
 		std::string tempname = bars[i];
 		std::replace(tempname.begin(), tempname.end(), '/', '_');
 
-		std::string name = "figures/" + tempname + "_stacked" ; 
+		std::string name = outputDest+ "/" + tempname + "_stacked" ; 
 		
 		//Runs Stacked graph function from PlotUtils.h
 		DrawTHStack(hists, files, color, name);

@@ -41,8 +41,7 @@ void DrawTH1(TH1* h, int color, std::string const& name)
   h->SetLineWidth(1);
   h->Draw("hist");
 
-  c.SaveAs((name+".pdf").c_str());
- 
+  c.SaveAs((name + ".pdf").c_str());
 }
 // function DrawTH1
 //-----------------------------------------------------------------------------
@@ -57,16 +56,17 @@ void DrawTH1(std::vector<TH1*> hists,std::vector<string> files, int color, std::
 
   for (size_t i=0; i < nHists; ++i){
 
-	hists[i]->SetLineColor(color++);
-	legend->AddEntry(hists[i],files[i].c_str(),"l"); 
+    hists[i]->SetLineColor(color++);
+    legend->AddEntry(hists[i],files[i].c_str(),"l"); 
 		
-	if (i==0){
-		hists[i]->Draw();
-		legend->Draw();
-	} else {
-		hists[i]->Draw("same");
-		legend->Draw("same");
-	}
+    if (i==0){
+      hists[i]->Draw();
+		  legend->Draw();
+    } 
+    else {
+      hists[i]->Draw("same");
+		  legend->Draw("same");
+    }
   }
 
   c.SaveAs((name+".pdf").c_str());
@@ -76,67 +76,68 @@ void DrawTH1(std::vector<TH1*> hists,std::vector<string> files, int color, std::
 //Drawing Stacked Histograms
 void DrawTHStack(std::vector<TH1*> hists, std::vector<string> files, int color, std:: string const& name)
 {
-   int nHists = hists.size();
+  int nHists = hists.size();
 
-   TCanvas c("c","c", 1600, 900);
-   THStack *hs = new THStack("hs", "");
-   auto legend = new TLegend(0.6,0.775, 0.78, 0.9);
-   legend->SetHeader(name.c_str(), "C");
+  TCanvas c("c","c", 1600, 900);
+  THStack *hs = new THStack("hs", "");
+  auto legend = new TLegend(0.6,0.775, 0.78, 0.9);
+  legend->SetHeader(name.c_str(), "C");
    
-   for (size_t i=0; i < nHists; ++i){
-	hists[i]->SetFillColor(color++);
-	hs->Add(hists[i]);
-	legend->AddEntry(hists[i], files[i].c_str(), "f");
-   }
+  for (size_t i=0; i < nHists; ++i){
+    hists[i]->SetFillColor(color++);
+    hs->Add(hists[i]);
+    legend->AddEntry(hists[i], files[i].c_str(), "f");
+  }
 
-   hs->Draw();
-   legend->Draw();
+  hs->Draw();
+  legend->Draw();
 
-   c.SaveAs((name+".pdf").c_str());
+  c.SaveAs((name+".pdf").c_str());
 }
 //----------------------------------------------------------------------------
 //Drawing Ratio histograms
 void DrawTHRatio(std::vector<TH1*> hists, int color, std:: string const& name)
 {
-   int nHists = hists.size();
+  int nHists = hists.size();
   
-   TCanvas c("c", "c", 1600, 900);
+  TCanvas c("c", "c", 1600, 900);
 
-   for (size_t i=1; i < nHists; ++i){
-     
-	 hists[i]->SetLineColor(color++);
-
-	if (i==0){
-       		hists[i]->Draw();
-	} else { 
-		hists[i]->Draw("same");
-		TH1* hRatio = (TH1*)hists[0]->Clone("hRatio");
-		hRatio->Divide(hists[i]);
-		hRatio->Draw();
-	}		  
-   }
+  for (size_t i=1; i < nHists; ++i){
+    
+    hists[i]->SetLineColor(color++);
+    
+    if (i==0){
+      hists[i]->Draw();
+    }
+    else { 
+      hists[i]->Draw("same");
+		  TH1* hRatio = (TH1*)hists[0]->Clone("hRatio");
+		  hRatio->Divide(hists[i]);
+		  hRatio->Draw();
+    }		  
+  }
    
-   c.SaveAs((name+".pdf").c_str());
+  c.SaveAs((name+".pdf").c_str());
 }
 //----------------------------------------------------------------------------
 //Drawing Layered Ratio histograms
 void DrawLayeredRatio(std::vector<TH1*> hists, int color, std:: string const& name)
 {
-   int nHists = hists.size();
+  int nHists = hists.size();
 
-   TCanvas c("c", "c", 1600, 900);
-   auto legend = new TLegend(0.6, 0.775, 0.78, 0.9);
+  TCanvas c("c", "c", 1600, 900);
+  auto legend = new TLegend(0.6, 0.775, 0.78, 0.9);
 
-   for (size_t i=1; i < nHists; ++i){
-	   hists[i]->SetLineColor(color++);
+  for (size_t i=1; i < nHists; ++i){
+    hists[i]->SetLineColor(color++);
 
-	   if (i==0){
-		   hists[i]->Draw("same");
-	   } else {
-		   hists[i]->Draw("same");
-	   }
+    if (i==0){
+		  hists[i]->Draw("same");
+	  }
+    else {
+      hists[i]->Draw("same");
+    }
 
-   
    }
 }
 //----------------------------------------------------------------------------
@@ -170,8 +171,9 @@ void LoadAndDrawTH2(TFile* f, std::string path, int color, std::string const& na
   delete g;
 }
 //-----------------------------------------------------------------------------
-void RecursivePlot(TDirectory* dir, std::string const& name="")
+void RecursivePlot(TDirectory* dir, std::string fileDestination, std::string const& name="")
 {
+  
   // get keys in current directory
   TIter next(dir->GetListOfKeys());
   TKey* k;
@@ -191,13 +193,15 @@ void RecursivePlot(TDirectory* dir, std::string const& name="")
     auto h = dynamic_cast<TH1*>(k->ReadObj());
 
     // if the key is a directory, call this function again inside
-    if (d) RecursivePlot(d, tag);
+    if (d) RecursivePlot(d, fileDestination, tag);
     // if the key is a histogram, draw it!
-    else if (h) DrawTH1(h, kOkabelto1, "plots/"+tag);
+    else if (h){
+    	std::string imageName = fileDestination + "/" + tag;
+     	DrawTH1(h, kOkabelto1, imageName);
+     }
     // otherwise just print a warning
     else std::cout << "object " << k->GetName() << " is not a directory or 1D histogram, skipping..." << std::endl;
 
   } // for key
-
 } // function RecursivePlot
 
