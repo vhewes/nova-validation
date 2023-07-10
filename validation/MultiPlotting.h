@@ -2,23 +2,23 @@
 //MultiFile.h by will barrett 
 #pragma once
 
+#include <algorithm>
+#include <string>
+#include <vector>
 
 #include "TCanvas.h"
-#include "vector"
 #include "TH1.h"
 #include "TH2.h"
 #include "TFile.h"
 #include "Okabelto.h"
 #include "PlottingUtils.h"
 
-#include "algorithm"
-#include "string"
 //-------------------------------------------------------------------------------------------------
 
 //-------------------------------------------------------------------------------------------------
 // Drawing each individual graph
 // loads the FILE first then the graphs from the file
-void DrawTH1Indiv(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
+void DrawTH1Indiv(std::vector<std::string> files, std::vector<std::string> bars, int color, std::string outputDest)
 {
 		
 	int nFiles = files.size();
@@ -44,7 +44,7 @@ void DrawTH1Indiv(std::vector<string> files, std::vector<string> bars, int color
 //--------------------------------------------------------------------------------------
 // Drawing each graph individually
 // Calls with GRAPH to load first then calls the file to load it from
-void DrawTH1Multi(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
+void DrawTH1Multi(std::vector<std::string> files, std::vector<std::string> bars, int color, std::string outputDest)
 {
 	int nFiles = files.size();
 	int nBars = bars.size();
@@ -67,7 +67,7 @@ void DrawTH1Multi(std::vector<string> files, std::vector<string> bars, int color
 }
 //-----------------------------------------------------------------------------------------
 // Drawing Layered Histograms of histograms with same name from different ROOT files
-void DrawTH1MultiLayered(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
+void DrawTH1MultiLayered(std::vector<std::string> files, std::vector<std::string> bars, int color, std::string outputDest)
 {
 	int nFiles = files.size();
 	int nBars = bars.size();
@@ -76,7 +76,7 @@ void DrawTH1MultiLayered(std::vector<string> files, std::vector<string> bars, in
 	for (size_t i=0; i < nBars; ++i){
 		
 		// Creates vector for graphs to be loaded into
-		vector<TH1*> hists;
+		std::vector<TH1*> hists;
 		
 		// Cycles through each file
 		for (size_t j=0; j < nFiles; ++j){
@@ -100,7 +100,7 @@ void DrawTH1MultiLayered(std::vector<string> files, std::vector<string> bars, in
 }
 //----------------------------------------------------------------------------------------------
 // Creating Ratio Graph
-void DrawTH1MultiRatio(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
+void DrawTH1MultiRatio(std::vector<std::string> files, std::vector<std::string> bars, int color, std::string outputDest)
 {
 	int nFiles = files.size();
 	int nBars = bars.size();
@@ -127,7 +127,7 @@ void DrawTH1MultiRatio(std::vector<string> files, std::vector<string> bars, int 
 }
 //-----------------------------------------------------------------------------------------
 // Creating Stacked Graph
-void DrawTH1MultiStacked(std::vector<string> files, std::vector<string> bars, int color, std::string outputDest)
+void DrawTH1MultiStacked(std::vector<std::string> files, std::vector<std::string> bars, int color, std::string outputDest)
 {
 	int nFiles = files.size();
 	int nBars = bars.size();
@@ -154,7 +154,7 @@ void DrawTH1MultiStacked(std::vector<string> files, std::vector<string> bars, in
 }
 //------------------------------------------------------------------------------------
 // Recursive Plotting
-void RecursivePlotting(TDirectory* dir, std::vector<string> files, std::string const& name="")
+void RecursivePlotting(TDirectory* dir, std::vector<std::string> files, std::string const& name="")
 {
    TIter next(dir->GetListOfKeys());
    TKey* k;

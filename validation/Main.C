@@ -4,9 +4,11 @@
 //
 //----------------------------------------
 
-#include "filesystem"
-#include "fstream"
-#include "vector"
+#include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <string>
+#include <vector>
 
 #include "TFile.h"
 #include "PlottingUtils.h"
@@ -20,11 +22,11 @@ using rdi = std::filesystem::recursive_directory_iterator;
 //Template to call for generating code for creating a PDF document with Latex
 template <class P> void PDFGen(std::string outputDest)
 {
-	std::string namepdf = outputDest + "/PDF-" + outputDest;
+	std::string namepdf = outputDest + "/doc";
 
 	PDFCreate(namepdf);
 
-	std::string path = ("./" + outputDest);
+	std::string path = (outputDest);
 
 	int i = 0;
 
@@ -128,7 +130,7 @@ void Main()
 
 		cout << "No ROOT File specified, closing." << endl;
 
-		return 0;
+		return;
 	}
 
 // Creating and populating a Plots Vector from ListofPlots.txt
@@ -209,13 +211,13 @@ void Main()
 
 // Printing the histogram images as pdf (this is where you would call your draw functions)
 
-		DrawTH1Multi(files, plots, kOkabelto1, outputDest);
+//		DrawTH1Multi(files, plots, kOkabelto1, outputDest);
 
 		DrawTH1MultiLayered(files, plots, kOkabelto1, outputDest);
 
-		DrawTH1MultiRatio(files, plots, kOkabelto1, outputDest);
+//		DrawTH1MultiRatio(files, plots, kOkabelto1, outputDest);
 
-		DrawTH1MultiStacked(files, plots, kOkabelto1, outputDest);
+//		DrawTH1MultiStacked(files, plots, kOkabelto1, outputDest);
 
 // Creating and adding the histograms to the correct .tex file format
 
@@ -239,7 +241,7 @@ void Main()
 		else{
 			cout << "Histograms have been printed, closing." << endl;
 		
-			return 0;
+			return;
 		}
 
 	} //From the else statement from checking LoP has stuff in it

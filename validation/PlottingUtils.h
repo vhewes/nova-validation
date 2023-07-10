@@ -1,9 +1,12 @@
 #pragma once
 
+#include <vector>
+
 #include "TCanvas.h"
-#include "vector"
 #include "TH1.h"
 #include "TH2.h"
+#include "THStack.h"
+#include "TKey.h"
 #include "TLegend.h"
 
 #include "TFile.h"
@@ -46,7 +49,9 @@ void DrawTH1(TH1* h, int color, std::string const& name)
 // function DrawTH1
 //-----------------------------------------------------------------------------
 //Drawing Layered Histograms
-void DrawTH1(std::vector<TH1*> hists,std::vector<string> files, int color, std:: string const& name)
+void DrawTH1(std::vector<TH1*> hists,
+             std::vector<std::string> files,
+             int color, std::string const& name)
 {
   int nHists = hists.size();
     
@@ -74,7 +79,7 @@ void DrawTH1(std::vector<TH1*> hists,std::vector<string> files, int color, std::
 } // function DrawTH1
 //---------------------------------------------------------------------------
 //Drawing Stacked Histograms
-void DrawTHStack(std::vector<TH1*> hists, std::vector<string> files, int color, std:: string const& name)
+void DrawTHStack(std::vector<TH1*> hists, std::vector<std::string> files, int color, std::string const& name)
 {
   int nHists = hists.size();
 
@@ -96,7 +101,7 @@ void DrawTHStack(std::vector<TH1*> hists, std::vector<string> files, int color, 
 }
 //----------------------------------------------------------------------------
 //Drawing Ratio histograms
-void DrawTHRatio(std::vector<TH1*> hists, int color, std:: string const& name)
+void DrawTHRatio(std::vector<TH1*> hists, int color, std::string const& name)
 {
   int nHists = hists.size();
   
